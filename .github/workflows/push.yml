@@ -31,6 +31,7 @@ jobs:
           GITHUB_DEPLOYMENT: false
           BUILD_ENV: |
             NODE_ENV="production"
+            REACT_APP_ENV="pro"
 
       - name: Deploy to Vercel Action(Test Environment)
         if: ${{ env.VERCEL_TOKEN && env.VERCEL_ORG_ID && env.VERCEL_PROJECT_ID && github.ref_name == 'dev' }}
@@ -44,6 +45,7 @@ jobs:
           GITHUB_DEPLOYMENT: false
           BUILD_ENV: |
             NODE_ENV="test"
+            REACT_APP_ENV="test"
 
       - name: Deploy to Vercel Action(Development environment)
         if: ${{ env.VERCEL_TOKEN && env.VERCEL_ORG_ID && env.VERCEL_PROJECT_ID && (github.ref_name != 'master' && github.ref_name != 'dev') }}
@@ -57,3 +59,4 @@ jobs:
           GITHUB_DEPLOYMENT: false
           BUILD_ENV: |
             NODE_ENV="development"
+            REACT_APP_ENV="dev"
