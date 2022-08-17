@@ -1,9 +1,9 @@
+// import process from 'process/browser';
 import './App.css';
 
 function App() {
   console.log("process.env.REACT_APP_ENV", process.env.REACT_APP_ENV);
   console.log("process.env.NODE_ENV", process.env.NODE_ENV);
-  console.log("process.env", process);
 
   const devJson = {
     locol: "locolhost:80",

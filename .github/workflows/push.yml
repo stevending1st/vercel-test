@@ -25,6 +25,7 @@ jobs:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+          WORKING_DIRECTORY: ./
           GITHUB_DEPLOYMENT: no
           BUILD_ENV: |
             NODE_ENV="production"
@@ -36,6 +37,7 @@ jobs:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+          WORKING_DIRECTORY: ./
           GITHUB_DEPLOYMENT: false
           BUILD_ENV: |
             NODE_ENV="test"
@@ -47,6 +49,7 @@ jobs:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+          WORKING_DIRECTORY: ./
           GITHUB_DEPLOYMENT: no
           BUILD_ENV: |
             NODE_ENV="development"
