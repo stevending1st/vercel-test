@@ -20,7 +20,7 @@ jobs:
           EOF
 
       - name: Deploy to Vercel Action(Production Environment)
-        # if: ${{ github.ref_name == 'master' }}
+        if: ${{ env.VERCEL_TOKEN && env.VERCEL_ORG_ID && env.VERCEL_PROJECT_ID && github.ref_name == 'master' }}
         uses: BetaHuhn/deploy-to-vercel-action@v1
         with:
           GITHUB_TOKEN: "#"
@@ -28,12 +28,12 @@ jobs:
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
           WORKING_DIRECTORY: ./
-          GITHUB_DEPLOYMENT: no
+          GITHUB_DEPLOYMENT: false
           BUILD_ENV: |
             NODE_ENV="production"
 
       - name: Deploy to Vercel Action(Test Environment)
-        # if: ${{ env.VERCEL_TOKEN && env.VERCEL_ORG_ID && env.VERCEL_PROJECT_ID && github.ref_name == 'dev' }}
+        if: ${{ env.VERCEL_TOKEN && env.VERCEL_ORG_ID && env.VERCEL_PROJECT_ID && github.ref_name == 'dev' }}
         uses: BetaHuhn/deploy-to-vercel-action@v1
         with:
           GITHUB_TOKEN: "#"
@@ -46,7 +46,7 @@ jobs:
             NODE_ENV="test"
 
       - name: Deploy to Vercel Action(Development environment)
-        # if: ${{ env.VERCEL_TOKEN && env.VERCEL_ORG_ID && env.VERCEL_PROJECT_ID && (github.ref_name != 'master' && github.ref_name != 'dev') }}
+        if: ${{ env.VERCEL_TOKEN && env.VERCEL_ORG_ID && env.VERCEL_PROJECT_ID && (github.ref_name != 'master' && github.ref_name != 'dev') }}
         uses: BetaHuhn/deploy-to-vercel-action@v1
         with:
           GITHUB_TOKEN: "#"
@@ -54,6 +54,6 @@ jobs:
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
           WORKING_DIRECTORY: ./
-          GITHUB_DEPLOYMENT: no
+          GITHUB_DEPLOYMENT: false
           BUILD_ENV: |
             NODE_ENV="development"
