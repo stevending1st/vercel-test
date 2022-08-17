@@ -18,9 +18,10 @@ jobs:
           cat > .env.production <<EOF
           ${{ secrets.ENV_PRODUCTION }}
           EOF
+          echo ${github.ref_name}
 
       - name: Deploy to Vercel Action(Production Environment)
-        if: ${{ github.ref_name == 'master' }}
+        # if: ${{ github.ref_name == 'master' }}
         uses: BetaHuhn/deploy-to-vercel-action@v1
         with:
           GITHUB_TOKEN: "#"
