@@ -18,7 +18,6 @@ jobs:
           cat > .env.production <<EOF
           ${{ secrets.ENV_PRODUCTION }}
           EOF
-          echo ${github.ref_name} "--"
 
       - name: Deploy to Vercel Action(Production Environment)
         # if: ${{ github.ref_name == 'master' }}
