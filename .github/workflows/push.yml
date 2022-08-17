@@ -20,7 +20,7 @@ jobs:
           EOF
 
       - name: Deploy to Vercel Action(Production Environment)
-        if: ${{ env.VERCEL_TOKEN && env.VERCEL_ORG_ID && env.VERCEL_PROJECT_ID && github.ref_name == 'master' }}
+        if: ${{ github.ref_name == 'master' }}
         uses: BetaHuhn/deploy-to-vercel-action@v1
         with:
           GITHUB_TOKEN: "#"
