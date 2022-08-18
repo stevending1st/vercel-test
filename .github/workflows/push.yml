@@ -8,19 +8,23 @@ jobs:
       VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
     runs-on: ubuntu-latest
     steps:
+      - name: Check secrets
+        if: ${{ !env.VERCEL_TOKEN || !env.VERCEL_ORG_ID || !env.VERCEL_PROJECT_ID }}
+        run: |
+          exit 1
+
       - name: Checkout
         uses: actions/checkout@v3
-        if: ${{ env.VERCEL_TOKEN && env.VERCEL_ORG_ID && env.VERCEL_PROJECT_ID }}
 
       - name: Get the production environment.env file
-        if: ${{ env.VERCEL_TOKEN && env.VERCEL_ORG_ID && env.VERCEL_PROJECT_ID && github.ref_name == 'master' }}
+        if: ${{ secrets.ENV_PRODUCTION && github.ref_name == 'master' }}
         run: |
           cat > .env.production <<EOF
           ${{ secrets.ENV_PRODUCTION }}
           EOF
 
       - name: Deploy to Vercel Action(Production Environment)
-        if: ${{ env.VERCEL_TOKEN && env.VERCEL_ORG_ID && env.VERCEL_PROJECT_ID && github.ref_name == 'master' }}
+        if: ${{ secrets.ENV_PRODUCTION && github.ref_name == 'master' }}
         uses: BetaHuhn/deploy-to-vercel-action@v1
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -34,7 +38,7 @@ jobs:
             REACT_APP_ENV=pro 
 
       - name: Deploy to Vercel Action(Test Environment)
-        if: ${{ env.VERCEL_TOKEN && env.VERCEL_ORG_ID && env.VERCEL_PROJECT_ID && github.ref_name == 'dev' }}
+        if: ${{ github.ref_name == 'dev' }}
         uses: BetaHuhn/deploy-to-vercel-action@v1
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -48,7 +52,7 @@ jobs:
             REACT_APP_ENV=test 
 
       - name: Deploy to Vercel Action(Development environment)
-        if: ${{ env.VERCEL_TOKEN && env.VERCEL_ORG_ID && env.VERCEL_PROJECT_ID && (github.ref_name != 'master' && github.ref_name != 'dev') }}
+        if: ${{ github.ref_name != 'master' && github.ref_name != 'dev' }}
         uses: BetaHuhn/deploy-to-vercel-action@v1
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
