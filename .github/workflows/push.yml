@@ -12,10 +12,10 @@ jobs:
       - name: Check secrets
         if: ${{ !env.VERCEL_TOKEN || !env.VERCEL_ORG_ID || !env.VERCEL_PROJECT_ID || (github.ref_name == 'master' && !env.ENV_PRODUCTION )}}
         run: |
-          if (!env.VERCEL_TOKEN); then echo "secrets.VERCEL_TOKEN does not set the value"; fi;
-          if (!env.VERCEL_ORG_ID); then echo "secrets.VERCEL_ORG_ID does not set the value"; fi;
-          if (!env.VERCEL_PROJECT_ID); then echo "secrets.VERCEL_PROJECT_ID does not set the value"; fi;
-          if (!env.ENV_PRODUCTION); then echo "secrets.ENV_PRODUCTION does not set the value"; fi;
+          if (${{!env.VERCEL_TOKEN}}); then echo "secrets.VERCEL_TOKEN does not set the value"; fi;
+          if (${{!env.VERCEL_ORG_ID}}); then echo "secrets.VERCEL_ORG_ID does not set the value"; fi;
+          if (${{!env.VERCEL_PROJECT_ID}}); then echo "secrets.VERCEL_PROJECT_ID does not set the value"; fi;
+          if (${{!env.ENV_PRODUCTION}}); then echo "secrets.ENV_PRODUCTION does not set the value"; fi;
           exit 1
 
       - name: Checkout
