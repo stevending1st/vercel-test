@@ -6,6 +6,7 @@ jobs:
       VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
       VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
       VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+      ENV_PRODUCTION: ${{ secrets.ENV_PRODUCTION }}
     runs-on: ubuntu-latest
     steps:
       - name: Check secrets
@@ -17,14 +18,14 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Get the production environment.env file
-        if: ${{ secrets.ENV_PRODUCTION && github.ref_name == 'master' }}
+        if: ${{ env.ENV_PRODUCTION && github.ref_name == 'master' }}
         run: |
           cat > .env.production <<EOF
           ${{ secrets.ENV_PRODUCTION }}
           EOF
 
       - name: Deploy to Vercel Action(Production Environment)
-        if: ${{ secrets.ENV_PRODUCTION && github.ref_name == 'master' }}
+        if: ${{ env.ENV_PRODUCTION && github.ref_name == 'master' }}
         uses: BetaHuhn/deploy-to-vercel-action@v1
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
